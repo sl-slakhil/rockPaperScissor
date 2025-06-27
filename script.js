@@ -3,11 +3,11 @@ function getComputerChoice()
 {
     const choice = Math.floor(Math.random()*10)%3;
         if (choice==0)
-            console.log("Comp chose Rock");
+            return("rock");
         if (choice==1)
-            console.log("Comp choose paper");
+            return("paper")
         if (choice==2)
-            console.log("Comp choose scissor");
+            return("scissors")
         return choice;
 
 }
@@ -15,31 +15,40 @@ function getComputerChoice()
 
 
 function getUserInput(){
-    const userInput=prompt("Enter 1 for rock, 2 for paper 3 for scissors: ");
-    if (userInput==1)
-        console.log("You chose Rock");
-    if (userInput==2)
-        console.log("You choose paper");
-    if (userInput==3)
-        console.log("You choose scissor");
+    const userInput=prompt("Enter rock, paper or scissors: ").toLowerCase();
+    console.log(userInput)
     return userInput;
+ 
 }
+let humanScore =0;
+let computerscore =0;
 
-
-function RockPaperScissor(){
-    const userval1 = getUserInput();
-    const compval = getComputerChoice();
-    const userval = parseInt(userval1)-1;
-    console.log(userval)
-    if (userval==compval){
-        console.log("Try again!")
-    }
-    if (userval==0&compval==2 || userval==2&compval==1 || userval==1&compval==0 ){
-        console.log("You Win")
-    }
+function playRound(humanChoice,computerChoice){
+    if (humanChoice === computerChoice) {
+        console.log(`It's a tie! Both chose ${humanChoice}`);
+        return 'tie';
+        }
+    if (humanChoice=="rock"&&computerChoice=="scissors" || humanChoice=="scissors"&&computerChoice=="paper" || humanChoice=="paper"&&computerChoice=="rock")
+        {
+            console.log(`You win ${humanChoice} beats ${computerChoice}`);
+            humanScore=humanScore+1;
+            return "human";
+        }
     else{
-        console.log("Loose! Better luck next time")
+        console.log(`Better luck next time ${computerChoice} beats ${humanChoice}`)
+        computerscore=computerscore+1;
+        return "computer";
     }
 }
 
-console.log(RockPaperScissor())
+
+
+
+for (let i = 1;i<=5;i++){
+    let humanSelection =getUserInput();
+    let computerSelection = getComputerChoice();
+    console.log(playRound(humanSelection,computerSelection))
+}
+
+console.log(humanScore);
+console.log(computerscore)
